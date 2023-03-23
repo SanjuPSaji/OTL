@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "867129841059",
+    "project_id": "otl-otp",
+    "storage_bucket": "otl-otp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867129841059:android:6bcd4122a2e733cfaab616",
+        "android_client_info": {
+          "package_name": "com.onthelookout.otl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867129841059-cp83u35qlgu4e84ag3d57nok18c2glpg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX4pvZIaaBrnL9rcS0omtEQX7L73_7KLI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867129841059-cp83u35qlgu4e84ag3d57nok18c2glpg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

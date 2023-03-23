@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">OTL</string>
+    <string name="OTP_explain">An OTP will be sent to your number for verification</string>
+    <string name="phone_number_verification">Phone Number Verification</string>
+    <string name="enter_your_mobile_number">Enter your Mobile Number</string>
+    <string name="get_otp">Get OTP</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="enter_the_otp_sent_to_you">Enter the OTP sent to your Mobile Number:</string>
+    <string name="x">X</string>
+    <string name="didn_t_recieve_any_otp">Didn\'t recieve any OTP?...</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="otl">OTL</string>
+    <string name="login">login</string>
+    <string name="register">register</string>
+    <string name="otl_slogan">Beaware... we support with care</string>
+</resources>
