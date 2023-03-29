@@ -16,18 +16,21 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.onthelookout.otl.ui.myaccount.MyAccountFragment;
 
 import java.util.concurrent.TimeUnit;
 
 public class EnterOTP extends AppCompatActivity {
     EditText inputnum1, inputnum2, inputnum3, inputnum4, inputnum5, inputnum6;
-    String getotpbackend;
+    String getotpbackend,textFullName, textEmail, textDob, textPwd, textGender, textNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,14 @@ public class EnterOTP extends AppCompatActivity {
                 "+91-%s", getIntent().getStringExtra("Mobile")
         ));
 
-        getotpbackend = getIntent().getStringExtra("getotpbackend ");
+        getotpbackend = getIntent().getStringExtra("getotpbackend");
+        textFullName = getIntent().getStringExtra("FullName");
+        textEmail = getIntent().getStringExtra("Email");
+        textDob = getIntent().getStringExtra("Dob");
+        textPwd= getIntent().getStringExtra("Password");
+        textGender =getIntent().getStringExtra("Gender");
+        textNum = "+91"+getIntent().getStringExtra("Mobile");
+
 
         final ProgressBar progressBarVerifyOTP = findViewById(R.id.progessbar_verifying_otp);
 
@@ -81,6 +91,7 @@ public class EnterOTP extends AppCompatActivity {
                                         otpverifybutton.setVisibility(View.VISIBLE);
 
                                         if (task.isSuccessful()) {
+                                            registerUser(textFullName,textEmail,textDob,textGender,textNum,textPwd);
                                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(intent);
@@ -110,7 +121,7 @@ public class EnterOTP extends AppCompatActivity {
             public void onClick(View view) {
                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
                         "+91" + getIntent().getStringExtra("Mobile"),
-                        60,
+                        15,
                         TimeUnit.SECONDS,
                         EnterOTP.this,
                         new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -137,6 +148,34 @@ public class EnterOTP extends AppCompatActivity {
 
 
 
+    }
+
+    // Register User using the credentials given
+    private void registerUser(String textFullName, String textEmail, String textDob, String textGender, String textNum, String textPwd) {
+    FirebaseAuth auth =FirebaseAuth.getInstance();
+    auth.createUserWithEmailAndPassword(textEmail, textPwd).addOnCompleteListener(EnterOTP.this,
+            new OnCompleteListener<AuthResult>() {
+        @Override
+        public void onComplete(@NonNull Task<AuthResult> task) {
+            if(task.isSuccessful()){
+                Toast.makeText(EnterOTP.this, "User registered successfully", Toast.LENGTH_LONG).show();
+                FirebaseUser firebaseUser = auth.getCurrentUser();
+
+                //Send verification Email
+                firebaseUser.sendEmailVerification();
+
+                //Open User Profile after successful registration
+                Intent intent = new Intent(EnterOTP.this, MyAccountFragment.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish(); //to close Register Activity
+
+            } else {
+
+            }
+        }
+    });
     }
 
     //function for when you type a single digit in an OTP box, the input bar moves to the next one
