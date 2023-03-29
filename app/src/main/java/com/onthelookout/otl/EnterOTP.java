@@ -24,6 +24,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.onthelookout.otl.ui.myaccount.MyAccountFragment;
 
 import java.util.concurrent.TimeUnit;
@@ -161,16 +164,44 @@ public class EnterOTP extends AppCompatActivity {
                 Toast.makeText(EnterOTP.this, "User registered successfully", Toast.LENGTH_LONG).show();
                 FirebaseUser firebaseUser = auth.getCurrentUser();
 
-                //Send verification Email
-                firebaseUser.sendEmailVerification();
+//                //Update Display Name of user
+//                UserProfileChangeRequest profileChangeRequest =
+//                        new UserProfileChangeRequest.Builder().setDisplayName(textFullName).build();
+//                firebaseUser.updateProfile(profileChangeRequest);
 
-                //Open User Profile after successful registration
-                Intent intent = new Intent(EnterOTP.this, MyAccountFragment.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                        Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish(); //to close Register Activity
+                //Enter User Data into the Firebase Realtime Database
+                ReadwriteUserDetails writeUserDetails = new ReadwriteUserDetails(textFullName, textEmail, textDob, textGender, textNum);
 
+                //Extracting user reference from Database for "Registered Users"
+                DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
+
+                referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener
+                        (new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if (task.isSuccessful()){
+                            //Send verification Email
+                            firebaseUser.sendEmailVerification();
+
+                            Toast.makeText(EnterOTP.this, "User registered successfully. Please verify your email",
+                                    Toast.LENGTH_LONG).show();
+
+                            //Open User Profile after successful registration
+                            Intent intent = new Intent(EnterOTP.this, MyAccountFragment.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                    Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish(); //to close Register Activity
+                        } else {
+                            Toast.makeText(EnterOTP.this, "User registration failed. Please try again",
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+
+
+                    }
+                });
             } else {
 
             }
