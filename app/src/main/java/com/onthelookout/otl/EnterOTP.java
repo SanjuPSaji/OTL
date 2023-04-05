@@ -55,7 +55,7 @@ public class EnterOTP extends AppCompatActivity {
                 "+91-%s", getIntent().getStringExtra("Mobile")
         ));
 
-        getotpbackend = getIntent().getStringExtra("getotpbackend");
+        getotpbackend = getIntent().getStringExtra("backendOTP");
         textFullName = getIntent().getStringExtra("FullName");
         textEmail = getIntent().getStringExtra("Email");
         textDob = getIntent().getStringExtra("Dob");
@@ -95,9 +95,6 @@ public class EnterOTP extends AppCompatActivity {
 
                                         if (task.isSuccessful()) {
                                             registerUser(textFullName,textEmail,textDob,textGender,textNum,textPwd);
-                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity(intent);
                                         } else {
                                             Toast.makeText(EnterOTP.this, "Enter the correct OTP", Toast.LENGTH_SHORT).show();
                                         }
@@ -156,6 +153,7 @@ public class EnterOTP extends AppCompatActivity {
     // Register User using the credentials given
     private void registerUser(String textFullName, String textEmail, String textDob, String textGender, String textNum, String textPwd) {
     FirebaseAuth auth =FirebaseAuth.getInstance();
+    
     auth.createUserWithEmailAndPassword(textEmail, textPwd).addOnCompleteListener(EnterOTP.this,
             new OnCompleteListener<AuthResult>() {
         @Override
@@ -165,12 +163,12 @@ public class EnterOTP extends AppCompatActivity {
                 FirebaseUser firebaseUser = auth.getCurrentUser();
 
 //                //Update Display Name of user
-//                UserProfileChangeRequest profileChangeRequest =
-//                        new UserProfileChangeRequest.Builder().setDisplayName(textFullName).build();
-//                firebaseUser.updateProfile(profileChangeRequest);
+                UserProfileChangeRequest profileChangeRequest =
+                        new UserProfileChangeRequest.Builder().setDisplayName(textFullName).build();
+                firebaseUser.updateProfile(profileChangeRequest);
 
                 //Enter User Data into the Firebase Realtime Database
-                ReadwriteUserDetails writeUserDetails = new ReadwriteUserDetails(textFullName, textEmail, textDob, textGender, textNum);
+                ReadwriteUserDetails writeUserDetails = new ReadwriteUserDetails(textEmail, textDob, textGender, textNum);
 
                 //Extracting user reference from Database for "Registered Users"
                 DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");

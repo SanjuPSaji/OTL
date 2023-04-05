@@ -3,6 +3,7 @@ package com.onthelookout.otl;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -28,13 +30,18 @@ import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.onthelookout.otl.ui.myaccount.MyAccountFragment;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterUser extends AppCompatActivity {
     // creating objects for accessing number and initiating otp generation
     EditText enterfullname, enteremail, enterdob, enterpwd, enterconfirmpwd, enternumber;
     RadioGroup entergender;
     RadioButton selectgender;
+    DatePickerDialog picker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,26 @@ public class RegisterUser extends AppCompatActivity {
 
         entergender = findViewById(R.id.registered_gender);
         entergender.clearCheck();
+
+        //setting up Datepicker on edittext
+        enterdob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                //Date Picker
+                picker = new DatePickerDialog(RegisterUser.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        enterdob.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                    }
+                }, year, month, day);
+                picker.show();
+            }
+        });
 
         Button getotpbutton = findViewById(R.id.get_otp_button);
 
@@ -75,6 +102,14 @@ public class RegisterUser extends AppCompatActivity {
                 String textConfirmPwd = enterconfirmpwd.getText().toString();
                 String textNum = enternumber.getText().toString();
                 String textGender = null;          //have to verify first if the button was selected before obtaining value
+
+                //Validate Mobile Number using matcher and pattern
+                String mobileRegex = "[6-9][0-9]{9}"; //First no. can be {6,7,8,9} and rest no. can be of ay no.
+                Matcher mobileMatcher;
+                Pattern mobilePattern = Pattern.compile(mobileRegex);
+                mobileMatcher = mobilePattern.matcher(textNum);
+
+
                 // TextUtils returns a boolean value
                 if (TextUtils.isEmpty(textFullName)) {
                     Toast.makeText(RegisterUser.this, "Please enter your full name", Toast.LENGTH_SHORT).show();
@@ -96,6 +131,10 @@ public class RegisterUser extends AppCompatActivity {
                     Toast.makeText(RegisterUser.this, "Please select your gender", Toast.LENGTH_SHORT).show();
                     selectgender.setError("Gender is required");
                     selectgender.requestFocus();
+                } else if (!mobileMatcher.find()) {
+                    Toast.makeText(RegisterUser.this, "Please re-enter your mobile number", Toast.LENGTH_SHORT).show();
+                    enternumber.setError("Mobile no. is not valid");
+                    enternumber.requestFocus();
                 } else if (TextUtils.isEmpty(textPwd)) {
                     Toast.makeText(RegisterUser.this, "Please enter your password", Toast.LENGTH_SHORT).show();
                     enterpwd.setError("Email is required");
