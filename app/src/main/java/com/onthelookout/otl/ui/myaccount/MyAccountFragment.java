@@ -10,22 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.onthelookout.otl.databinding.FragmentDashboardBinding;
+import com.onthelookout.otl.databinding.FragmentMyaccountBinding;
+
 
 public class MyAccountFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentMyaccountBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MyAccountViewModel dashboardViewModel =
+        MyAccountViewModel myaccountViewModel =
                 new ViewModelProvider(this).get(MyAccountViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentMyaccountBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textMyaccount;
+        myaccountViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.onthelookout.otl.databinding.FragmentDashboardBinding;
+import com.onthelookout.otl.databinding.FragmentUploadBinding;
 
 public class UploadFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentUploadBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        UploadViewModel dashboardViewModel =
+        UploadViewModel uploadViewModel =
                 new ViewModelProvider(this).get(UploadViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentUploadBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textUpload;
+        uploadViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
