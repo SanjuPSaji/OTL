@@ -29,16 +29,23 @@ import com.onthelookout.otl.ImageUrl;
 
 import java.util.HashMap;
 
+
+
 public class Complaint extends AppCompatActivity {
 EditText info_complaint;
 Button submit_complaint;
 ImageView image_complaint;
 ProgressBar progressBar_complaint;
+
+
+
 //possible issue fire base reference
 private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
 private StorageReference reference = FirebaseStorage.getInstance().getReference();
 private Uri imageUri;
     ImageUrl imageUrl;
+    static int complaintNo = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +55,10 @@ private Uri imageUri;
         submit_complaint = findViewById(R.id.submit_complaint);
         image_complaint = findViewById(R.id.image_complaint);
         progressBar_complaint = findViewById(R.id.progressBar_complaint);
-
+        complaintNo ++;
         progressBar_complaint.setVisibility(View.INVISIBLE);
-
         String type = getIntent().getStringExtra("type");
-
+//        String complaintNoString = complaintNo.toString();
         image_complaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +77,7 @@ private Uri imageUri;
                 HashMap<String ,Object> m = new HashMap<String, Object>();
                 m.put("Information",info_complaint.getText().toString());
                 m.put("Type",type);
-                m.put("Image",imageUrl);
+                m.put("No",complaintNo);
                 root.child("Complaints").push().setValue(m);
 
                 Intent intent = new Intent(Complaint.this, MainActivity.class);
@@ -99,9 +105,14 @@ private Uri imageUri;
                     @Override
                     public void onSuccess(Uri uri) {
 
-                        imageUrl = new ImageUrl(uri.toString());
-//                        String urdlId = root.push().getKey();
-//                        root.child("Complaints").setValue(imageUrl);
+                        ImageUrl imageUrl = new ImageUrl(uri.toString());
+//                        String urllId = root.push().getKey();
+//                        root.child("urlId").setValue(imageUrl);
+                        HashMap<String ,Object> k = new HashMap<String, Object>();
+                        k.put("url",imageUrl);
+                        k.put("No",complaintNo);
+                        root.child("urlId").push().setValue(k);
+
                         progressBar_complaint.setVisibility(View.INVISIBLE);
                         // possible error
                         Toast.makeText(Complaint.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
