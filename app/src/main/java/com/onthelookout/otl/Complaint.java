@@ -99,7 +99,10 @@ private Uri imageUri;
                     @Override
                     public void onSuccess(Uri uri) {
 
-                        ImageUrl imageUrl = new ImageUrl(uri.toString());
+                        imageUrl = new ImageUrl(uri.toString());
+//                        String urdlId = root.push().getKey();
+//                        root.child("Complaints").setValue(imageUrl);
+                        progressBar_complaint.setVisibility(View.INVISIBLE);
                         // possible error
                         Toast.makeText(Complaint.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
                     }
