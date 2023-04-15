@@ -44,7 +44,6 @@ private DatabaseReference root = FirebaseDatabase.getInstance().getReference();
 private StorageReference reference = FirebaseStorage.getInstance().getReference();
 private Uri imageUri;
     ImageUrl imageUrl;
-    static int complaintNo = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +54,6 @@ private Uri imageUri;
         submit_complaint = findViewById(R.id.submit_complaint);
         image_complaint = findViewById(R.id.image_complaint);
         progressBar_complaint = findViewById(R.id.progressBar_complaint);
-        complaintNo ++;
         progressBar_complaint.setVisibility(View.INVISIBLE);
         String type = getIntent().getStringExtra("type");
 //        String complaintNoString = complaintNo.toString();
@@ -72,16 +70,18 @@ private Uri imageUri;
             @Override
             public void onClick(View view) {
                 if (imageUri!= null) {
-                    uploadToFirebase(imageUri);
+                    uploadToFirebase(imageUri,type);
                 }
-                HashMap<String ,Object> m = new HashMap<String, Object>();
-                m.put("Information",info_complaint.getText().toString());
-                m.put("Type",type);
-                m.put("No",complaintNo);
-                root.child("Complaints").push().setValue(m);
+                else {
+                    HashMap<String, Object> m = new HashMap<String, Object>();
+                    m.put("Information", info_complaint.getText().toString());
+                    m.put("Type", type);
+                    root.child("Complaints").push().setValue(m);
+                    Toast.makeText(Complaint.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(Complaint.this, MainActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(Complaint.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -96,7 +96,7 @@ private Uri imageUri;
                 image_complaint.setImageURI(imageUri);
         }
     }
-    private void uploadToFirebase(Uri uri){
+    private void uploadToFirebase(Uri uri,String type){
         StorageReference fileRef = reference.child(System.currentTimeMillis()+"."+ getFileExtension(uri));
         fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -109,13 +109,16 @@ private Uri imageUri;
 //                        String urllId = root.push().getKey();
 //                        root.child("urlId").setValue(imageUrl);
                         HashMap<String ,Object> k = new HashMap<String, Object>();
-                        k.put("url",imageUrl);
-                        k.put("No",complaintNo);
-                        root.child("urlId").push().setValue(k);
+                        k.put("Information",info_complaint.getText().toString());
+                        k.put("Type",type);
+                        k.put("url",imageUrl.toString());
+                        root.child("Complaints").push().setValue(k);
 
                         progressBar_complaint.setVisibility(View.INVISIBLE);
                         // possible error
                         Toast.makeText(Complaint.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Complaint.this, MainActivity.class);
+                        startActivity(intent);
                     }
                 });
             }
