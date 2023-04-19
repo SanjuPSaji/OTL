@@ -8,15 +8,14 @@
 
     <ScrollView android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/app_theme_color"
+        android:background="@drawable/login_page_background"
         tools:context=".LoginActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="50dp"
-            android:background="@color/app_theme_secondary">
+            android:layout_marginTop="50dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,31 +26,36 @@
                     android:id="@+id/textView_login_head"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="LOGIN"
                     android:layout_marginTop="30dp"
-                    android:textColor="@color/black"
-                    android:text="Welcome back!"
-                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="40dp"
+                    android:layout_marginLeft="30dp"
+                    android:fontFamily="@font/bellezaregular"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                <TextView
-                    android:id="@+id/textView_login_instruction"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="Please log in to continue"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+                <ImageView
+                    android:layout_width="230dp"
+                    android:layout_height="10dp"
+                    android:layout_toRightOf="@id/textView_login_head"
+                    android:src="@drawable/line"
+                    android:layout_marginTop="-30dp"
+                    android:layout_marginLeft="150dp">
+                </ImageView>
+
+
+
+
 
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="-30dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/backgroundbox"
                 android:padding="15dp">
 
                 <RelativeLayout
@@ -65,7 +69,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
-                        android:text="Email*"/>
+                        android:text="Email*"
+                        android:fontFamily="@font/bellezaregular"
+                        android:textSize="20sp"/>
 
                     <EditText
                         android:id="@+id/editText_login_email"
@@ -73,12 +79,13 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/textView_login_email"
                         android:hint="Enter email"
+                        android:fontFamily="@font/bellezaregular"
                         android:background="@drawable/backgroundbox"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:inputType="textEmailAddress"
                         android:padding="6dp"
-                        android:textSize="16sp" />
+                        android:textSize="20sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -93,6 +100,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
+                        android:fontFamily="@font/bellezaregular"
+                        android:textSize="20sp"
                         android:text="Password*" />
 
 
@@ -103,11 +112,12 @@
                         android:layout_below="@id/textView_login_pwd"
                         android:background="@drawable/backgroundbox"
                         android:hint="Enter password"
+                        android:fontFamily="@font/bellezaregular"
                         android:inputType="textPassword"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:padding="6dp"
-                        android:textSize="16sp" />
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:id="@+id/imageView_show_hide_pwd"
@@ -129,15 +139,19 @@
                     android:layout_marginLeft="70dp"
                     android:layout_centerHorizontal="true"
                     android:text="Login"
-                    android:backgroundTint="@color/app_theme_color"/>
+                    android:fontFamily="@font/bellezaregular"
+                    android:textSize="20sp"
+                    android:background="@drawable/buttonbox"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/button_login"
-                    android:layout_marginTop="20dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="150dp"
                     android:layout_marginBottom="20dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/textView_register"
                         android:layout_width="match_parent"
@@ -151,35 +165,35 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/register"
-                        android:textColor="@color/purple_700"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/purple_700" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/button_login"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/button_login"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:layout_marginBottom="20dp"-->
+<!--                    android:layout_alignParentEnd="true"-->
+<!--                    android:orientation="vertical">-->
 
-                    <TextView
-                        android:id="@+id/textView_forgot_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:text="Forgot your password?"
-                        android:textAlignment="center" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView_forgot_password"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="30dp"-->
+<!--                        android:text="Forgot your password?"-->
+<!--                        android:textAlignment="center" />-->
 
-                    <TextView
-                        android:id="@+id/textView_forgot_password_link"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="click_here_to_reset"
-                        android:textColor="@color/purple_700"
-                        android:textAlignment="center" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView_forgot_password_link"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="click_here_to_reset"-->
+<!--                        android:textColor="@color/purple_700"-->
+<!--                        android:textAlignment="center" />-->
+<!--                </LinearLayout>-->
 
                 <ProgressBar
                     android:id="@+id/progressBar"

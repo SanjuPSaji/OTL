@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_theme_secondary"
+    android:background="@drawable/otp_page_background"
     android:scrollbars="none"
     android:overScrollMode="never"
     tools:context=".EnterOTP">
@@ -22,7 +22,7 @@
             android:id="@+id/otp_auth_img"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             app:srcCompat="@drawable/otpenter" />
 
         <TextView
@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/otp_verification"
-            android:textSize="20sp"
+            android:fontFamily="@font/bellezaregular"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="@color/primarytextcolor"/>
 
@@ -65,7 +66,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="100dp"
             android:gravity="center"
             android:orientation="horizontal">
             
@@ -204,7 +205,7 @@
             android:text="Resend OTP"
             android:textSize="15sp"
             android:textStyle="bold |italic"
-            android:textColor="@color/purple_200" />
+            android:textColor="@color/purple_700" />
 
 
 
@@ -221,7 +222,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:backgroundTint="@color/app_theme_color"
+            android:background="@drawable/buttonbox"
+            android:fontFamily="@font/bellezaregular"
             android:text="@string/otp_verification"
             android:textColor="@color/primarytextcolor"
             android:textStyle="bold"/>

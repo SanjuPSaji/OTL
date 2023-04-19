@@ -22,7 +22,9 @@ public class Start extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         //Set the title
-        getSupportActionBar().setTitle("On The Lookout");
+//        getSupportActionBar().setTitle("On The Lookout");
+        getSupportActionBar().hide(); //hide the title bar
+
         authProfile = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = authProfile.getCurrentUser();
 

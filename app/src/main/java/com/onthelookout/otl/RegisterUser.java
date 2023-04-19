@@ -46,7 +46,7 @@ public class RegisterUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Register");
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_register_user);
 
 

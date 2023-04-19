@@ -38,6 +38,9 @@ public class EnterOTP extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_enter_otp);
 
         Button otpverifybutton = findViewById(R.id.otp_submit_button);

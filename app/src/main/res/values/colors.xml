@@ -11,6 +11,7 @@
     <color name="primary_accent_color">#535353</color>
     <color name="app_theme_color">#00A879</color>
     <color name="app_theme_secondary">#A0FDF4</color>
+    <color name="transparent">#40DEFFFC</color>
 
 
 </resources>
