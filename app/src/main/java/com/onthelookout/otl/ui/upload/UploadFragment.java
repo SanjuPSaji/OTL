@@ -43,6 +43,10 @@ public class UploadFragment extends Fragment {
         super.onStart();
         Button buttonfire = (Button) context.findViewById(R.id.button_fire);
         Button buttonearthquake = (Button) context.findViewById(R.id.button_earthquake);
+        Button buttonkidnapping = (Button) context.findViewById(R.id.button_kidnapping);
+        Button buttonassult = (Button) context.findViewById(R.id.button_assult);
+        Button buttonrobbery = (Button) context.findViewById(R.id.button_robbery);
+        Button buttonaccident = (Button) context.findViewById(R.id.button_accident);
         buttonfire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +61,42 @@ public class UploadFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(context, Complaint.class);
                 intent.putExtra("type","Earthquake");
+                startActivity(intent);
+            }
+        });
+
+        buttonkidnapping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Complaint.class);
+                intent.putExtra("type","Kidnapping");
+                startActivity(intent);
+            }
+        });
+
+        buttonassult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Complaint.class);
+                intent.putExtra("type","Assult");
+                startActivity(intent);
+            }
+        });
+
+        buttonrobbery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Complaint.class);
+                intent.putExtra("type","Robbery");
+                startActivity(intent);
+            }
+        });
+
+        buttonaccident.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Complaint.class);
+                intent.putExtra("type","Accident");
                 startActivity(intent);
             }
         });

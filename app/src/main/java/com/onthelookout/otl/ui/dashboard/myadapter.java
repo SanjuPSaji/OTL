@@ -1,5 +1,6 @@
 package com.onthelookout.otl.ui.dashboard;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +26,12 @@ public class myadapter extends FirebaseRecyclerAdapter<model_dashboard,myadapter
     @Override
     protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull model_dashboard model)
     {
-        holder.typetext.setText(model.getType());
+        holder.type_text.setText(model.getType());
         holder.informationtext.setText(model.getInformation());
         Glide.with(holder.img1.getContext()).load(model.getUrl()).into(holder.img1);
+        Log.d("DashboardFragment", "Setting data for item " + position + ": " + model.toString());
+        // ...
+
     }
 
     @NonNull
@@ -42,11 +46,11 @@ public class myadapter extends FirebaseRecyclerAdapter<model_dashboard,myadapter
     class myviewholder extends RecyclerView.ViewHolder
     {
         ImageView img1;
-        TextView typetext,informationtext;
+        TextView type_text,informationtext;
         public myviewholder(@NonNull View itemView) {
             super(itemView);
             img1=(ImageView)itemView.findViewById(R.id.img1);
-            typetext=(TextView)itemView.findViewById(R.id.typetext);
+            type_text=(TextView)itemView.findViewById(R.id.typetext11);
             informationtext=(TextView)itemView.findViewById(R.id.informationtext);
         }
     }

@@ -1,31 +1,31 @@
 package com.onthelookout.otl.ui.dashboard;
 
 public class model_dashboard {
-    String type,information,url;
+    String Type,Information,url;
 
     model_dashboard (){
 
     }
-    public model_dashboard(String type, String information, String url) {
-        this.type = type;
-        this.information = information;
+    public model_dashboard(String type, String Information, String url) {
+        this.Type = Type;
+        this.Information = Information;
         this.url = url;
     }
 
     public String getType() {
-        return type;
+        return Type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(String Type) {
+        this.Type = Type;
     }
 
     public String getInformation() {
-        return information;
+        return Information;
     }
 
-    public void setInformation(String information) {
-        this.information = information;
+    public void setInformation(String Information) {
+        this.Information = Information;
     }
 
     public String getUrl() {

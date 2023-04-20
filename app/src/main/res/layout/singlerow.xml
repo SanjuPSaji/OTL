@@ -23,11 +23,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/typetext"
-            android:text="This is type"
+            android:id="@+id/typetext11"
+            android:text=""
             android:textStyle="bold"
             android:textSize="25sp"
-            android:textColor="#057"
+            android:textColor="#000"
             android:layout_toRightOf="@id/img1"
             android:layout_marginLeft="10dp"/>
 
@@ -39,7 +39,7 @@
             android:textSize="25sp"
             android:textColor="#000"
             android:layout_toRightOf="@id/img1"
-            android:layout_below="@id/typetext"
+            android:layout_below="@id/typetext11"
             android:layout_marginLeft="10dp"/>
 
 
