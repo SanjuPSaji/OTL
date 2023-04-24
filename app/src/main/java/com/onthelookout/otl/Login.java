@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.onthelookout.otl.ui.notifications.NotificationsFragment;
 
 public class Login extends AppCompatActivity {
     private EditText editTextLoginEmail, editTextLoginPwd;
@@ -108,6 +109,9 @@ public class Login extends AppCompatActivity {
 
                     //Check if email is verified before user can access their profile
                     if (firebaseUser.isEmailVerified()){
+
+                        MemoryData.saveUID(email,Login.this);
+
                         Toast.makeText(Login.this, "You are logged in", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
@@ -120,6 +124,7 @@ public class Login extends AppCompatActivity {
 //                        authProfile.signOut(); //sign out user
 //                        showAlertDialog();
                         Intent intent = new Intent(Login.this, MainActivity.class);
+//                        intent.putExtra("Email", email);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
                                 Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);

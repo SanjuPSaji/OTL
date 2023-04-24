@@ -3,7 +3,9 @@ package com.onthelookout.otl;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,12 +30,13 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.onthelookout.otl.ui.myaccount.MyAccountFragment;
+import com.onthelookout.otl.ui.notifications.NotificationsFragment;
 
 import java.util.concurrent.TimeUnit;
 
 public class EnterOTP extends AppCompatActivity {
     EditText inputnum1, inputnum2, inputnum3, inputnum4, inputnum5, inputnum6;
-    String getotpbackend,textFullName, textEmail, textDob, textPwd, textGender, textNum;
+    String getotpbackend,textFullName, textEmail, textDob, textPwd, textGender, textNum, profilepic,numasid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,9 @@ public class EnterOTP extends AppCompatActivity {
         textDob = getIntent().getStringExtra("Dob");
         textPwd= getIntent().getStringExtra("Password");
         textGender =getIntent().getStringExtra("Gender");
-        textNum = "+91"+getIntent().getStringExtra("Mobile");
+        textNum = "+91-"+getIntent().getStringExtra("Mobile");
+        numasid = getIntent().getStringExtra("Mobile");
+        profilepic = " ";
 
 
         final ProgressBar progressBarVerifyOTP = findViewById(R.id.progessbar_verifying_otp);
@@ -97,7 +102,7 @@ public class EnterOTP extends AppCompatActivity {
                                         otpverifybutton.setVisibility(View.VISIBLE);
 
                                         if (task.isSuccessful()) {
-                                            registerUser(textFullName,textEmail,textDob,textGender,textNum,textPwd);
+                                            registerUser(textFullName,textEmail,textDob,textGender,textNum,textPwd,profilepic);
                                         } else {
                                             Toast.makeText(EnterOTP.this, "Enter the correct OTP", Toast.LENGTH_SHORT).show();
                                         }
@@ -154,7 +159,7 @@ public class EnterOTP extends AppCompatActivity {
     }
 
     // Register User using the credentials given
-    private void registerUser(String textFullName, String textEmail, String textDob, String textGender, String textNum, String textPwd) {
+    private void registerUser(String textFullName, String textEmail, String textDob, String textGender, String textNum, String textPwd, String profilepic) {
     FirebaseAuth auth =FirebaseAuth.getInstance();
     
     auth.createUserWithEmailAndPassword(textEmail, textPwd).addOnCompleteListener(EnterOTP.this,
@@ -171,25 +176,38 @@ public class EnterOTP extends AppCompatActivity {
                 firebaseUser.updateProfile(profileChangeRequest);
 
                 //Enter User Data into the Firebase Realtime Database
-                ReadwriteUserDetails writeUserDetails = new ReadwriteUserDetails(textEmail, textDob, textGender, textNum);
+                ReadwriteUserDetails writeUserDetails = new ReadwriteUserDetails(textFullName,textEmail, textDob, textGender, textNum, profilepic);
 
                 //Extracting user reference from Database for "Registered Users"
                 DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
 
-                referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener
+                String uid = firebaseUser.getUid();
+
+                referenceProfile.child(uid).setValue(writeUserDetails).addOnCompleteListener
                         (new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if (task.isSuccessful()){
                             //Send verification Email
-                            firebaseUser.sendEmailVerification();
+//                            firebaseUser.sendEmailVerification();
 
-                            Toast.makeText(EnterOTP.this, "User registered successfully. Please verify your email",
+                            Toast.makeText(EnterOTP.this, "User registered successfully.",
                                     Toast.LENGTH_LONG).show();
 
+                            //save mobile to memory
+//                            MemoryData.saveUID(uid,EnterOTP.this);
+//                            SharedPreferences sharedPreferences = getSharedPreferences("UID", Context.MODE_PRIVATE);
+//                            SharedPreferences.Editor editor = sharedPreferences.edit();
+//                            editor.putInt(getString("UID"),uid);
+//                            editor.apply();
+//                            sharedPreferences.edit().putString("UID",uid).commit();
+
+
                             //Open User Profile after successful registration
-                            Intent intent = new Intent(EnterOTP.this, MyAccountFragment.class);
+                            Intent intent = new Intent(EnterOTP.this, Message.class);
+                            intent.putExtra("UID", uid);
+
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
                                     Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
