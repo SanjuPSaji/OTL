@@ -43,4 +43,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_fire" />
 
+    <Button
+        android:id="@+id/button_kidnapping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="29dp"
+        android:text="Kidnapping"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_fire" />
+
+    <Button
+        android:id="@+id/button_assult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="29dp"
+        android:text="Assult"
+        app:layout_constraintStart_toEndOf="@+id/button_kidnapping"
+        app:layout_constraintTop_toBottomOf="@+id/button_earthquake" />
+
+    <Button
+        android:id="@+id/button_robbery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="38dp"
+        android:text="Robbery"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_kidnapping" />
+
+    <Button
+        android:id="@+id/button_accident"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="34dp"
+        android:text="Accident"
+        app:layout_constraintStart_toEndOf="@+id/button_robbery"
+        app:layout_constraintTop_toBottomOf="@+id/button_assult" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

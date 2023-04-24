@@ -21,59 +21,42 @@ import com.onthelookout.otl.Complaint;
 import com.onthelookout.otl.R;
 import com.onthelookout.otl.databinding.FragmentDashboardBinding;
 
-public class DashboardFragment extends Fragment {
-    Activity context;
-    myadapter adapter;
-    private FragmentDashboardBinding binding;
-
-
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        context = getActivity();
-
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
-
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-//        RecyclerView recview_dasboard = (RecyclerView) context.findViewById(R.id.recview_dasboard);
-//        recview_dasboard.setLayoutManager(new LinearLayoutManager(getContext()));
+//public class DashboardFragment extends Fragment {
+//    Activity context;
+//    myadapter adapter;
+//    private FragmentDashboardBinding binding;
 //
-//        FirebaseRecyclerOptions<model_dashboard> options =
-//                new FirebaseRecyclerOptions.Builder<model_dashboard>()
-//                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Complaints"), model_dashboard.class)
-//                        .build();
 //
-//        adapter = new myadapter(options);
-//        recview_dasboard.setAdapter(adapter);
-
-//        final TextView textView = binding.textDashboard;
-//        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        RecyclerView recview_dasboard = (RecyclerView) context.findViewById(R.id.recview_dasboard);
-        recview_dasboard.setLayoutManager(new LinearLayoutManager(context));                                            //possible error
-
-        FirebaseRecyclerOptions<model_dashboard> options =
-                new FirebaseRecyclerOptions.Builder<model_dashboard>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Complaints"), model_dashboard.class)
-                        .build();
-
-        adapter = new myadapter(options);
-        recview_dasboard.setAdapter(adapter);
-
-
-    }
-
-@Override
-    public void onStart(){
-        super.onStart();
+//
+//    public View onCreateView(@NonNull LayoutInflater inflater,
+//                             ViewGroup container, Bundle savedInstanceState) {
+//        context = getActivity();
+//
+//        DashboardViewModel dashboardViewModel =
+//                new ViewModelProvider(this).get(DashboardViewModel.class);
+//
+//        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+//        View root = binding.getRoot();
+//
+////        RecyclerView recview_dasboard = (RecyclerView) context.findViewById(R.id.recview_dasboard);
+////        recview_dasboard.setLayoutManager(new LinearLayoutManager(getContext()));
+////
+////        FirebaseRecyclerOptions<model_dashboard> options =
+////                new FirebaseRecyclerOptions.Builder<model_dashboard>()
+////                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Complaints"), model_dashboard.class)
+////                        .build();
+////
+////        adapter = new myadapter(options);
+////        recview_dasboard.setAdapter(adapter);
+//
+////        final TextView textView = binding.textDashboard;
+////        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        return root;
+//    }
+//
+//    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
 //        RecyclerView recview_dasboard = (RecyclerView) context.findViewById(R.id.recview_dasboard);
 //        recview_dasboard.setLayoutManager(new LinearLayoutManager(context));                                            //possible error
 //
@@ -85,8 +68,83 @@ public class DashboardFragment extends Fragment {
 //        adapter = new myadapter(options);
 //        recview_dasboard.setAdapter(adapter);
 //
-        adapter.startListening();
+//
+//    }
+//
+//@Override
+//    public void onStart(){
+//        super.onStart();
+////        RecyclerView recview_dasboard = (RecyclerView) context.findViewById(R.id.recview_dasboard);
+////        recview_dasboard.setLayoutManager(new LinearLayoutManager(context));                                            //possible error
+////
+////        FirebaseRecyclerOptions<model_dashboard> options =
+////                new FirebaseRecyclerOptions.Builder<model_dashboard>()
+////                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Complaints"), model_dashboard.class)
+////                        .build();
+////
+////        adapter = new myadapter(options);
+////        recview_dasboard.setAdapter(adapter);
+////
+//        adapter.startListening();
+//
+//    }
+//
+//    @Override
+//    public void onStop(){
+//        super.onStop();
+//        if(adapter != null) {
+//            adapter.stopListening();
+//        }
+//    }
+//
+//
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//      //  adapter.stopListening();
+//        binding = null;
+//    }
+//}
 
+public class DashboardFragment extends Fragment {
+    Activity context;
+    myadapter adapter;
+    private FragmentDashboardBinding binding;
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        context = getActivity();
+
+        DashboardViewModel dashboardViewModel =
+                new ViewModelProvider(this).get(DashboardViewModel.class);
+
+        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        RecyclerView recview_dasboard = root.findViewById(R.id.recview_dasboard); // Update to use root view
+        recview_dasboard.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        FirebaseRecyclerOptions<model_dashboard> options =
+                new FirebaseRecyclerOptions.Builder<model_dashboard>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Complaints"), model_dashboard.class)
+                        .build();
+
+        adapter = new myadapter(options);
+        recview_dasboard.setAdapter(adapter);
+
+//        final TextView textView = binding.textDashboard;
+//        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        return root;
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        adapter.startListening();
     }
 
     @Override
@@ -97,11 +155,9 @@ public class DashboardFragment extends Fragment {
         }
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-      //  adapter.stopListening();
         binding = null;
     }
 }
