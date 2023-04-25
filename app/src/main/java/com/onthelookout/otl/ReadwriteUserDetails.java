@@ -1,13 +1,15 @@
 package com.onthelookout.otl;
 
 public class ReadwriteUserDetails {
-    public String email, dob, gender, mobile;
+    public String name, email, dob, gender, mobile, profilepicture;
 
-    public ReadwriteUserDetails(String textEmail,String  textDob,String  textGender,String  textNum){
+    public ReadwriteUserDetails(String textFullName, String textEmail, String  textDob, String  textGender, String  textNum, String profilepic){
+        this.name= textFullName;
         this.email = textEmail;
         this.dob = textDob;
         this.gender = textGender;
         this.mobile = textNum;
+        this.profilepicture = profilepic;
     }
 
 }

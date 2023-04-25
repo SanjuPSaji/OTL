@@ -29,6 +29,8 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.onthelookout.otl.ui.myaccount.MyAccountFragment;
+import com.onthelookout.otl.ui.notifications.NotificationsFragment;
+import com.onthelookout.otl.ui.notifications.NotificationsViewModel;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -200,6 +202,11 @@ public class RegisterUser extends AppCompatActivity {
                                         intent.putExtra("Gender", selectgender.getText().toString());
                                         intent.putExtra("Password", textPwd);
 //                                        exception(textFullName,textEmail,textDob, finalTextGender,textNum,textPwd);
+//                                        Intent i = new Intent(getApplicationContext(), NotificationsFragment.class);
+//                                        i.putExtra("Mobile", enternumber.getText().toString());
+//                                        i.putExtra("FullName", textFullName);
+//                                        i.putExtra("Email", textEmail);
+
                                         startActivity(intent);
                                     }
                                 }
