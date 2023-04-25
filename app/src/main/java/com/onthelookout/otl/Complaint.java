@@ -10,10 +10,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,6 +40,9 @@ Button submit_complaint;
 ImageView image_complaint;
 ProgressBar progressBar_complaint;
 
+Spinner spinner_complaint;
+
+String[] city = {"Dapodi","Pimpri"};
 
 
 //possible issue fire base reference
@@ -54,8 +60,28 @@ private Uri imageUri;
         submit_complaint = findViewById(R.id.submit_complaint);
         image_complaint = findViewById(R.id.image_complaint);
         progressBar_complaint = findViewById(R.id.progressBar_complaint);
+        spinner_complaint = findViewById(R.id.spinner_complaint);
         progressBar_complaint.setVisibility(View.INVISIBLE);
         String type = getIntent().getStringExtra("type");
+        final String[] value = {new String()};
+
+        ArrayAdapter<String> adapter_spin = new ArrayAdapter<String>(Complaint.this, android.R.layout.simple_spinner_item,city);
+        adapter_spin.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_complaint.setAdapter(adapter_spin);
+
+        spinner_complaint.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                value[0] = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(Complaint.this, value[0],Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 //        String complaintNoString = complaintNo.toString();
         image_complaint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,12 +96,13 @@ private Uri imageUri;
             @Override
             public void onClick(View view) {
                 if (imageUri!= null) {
-                    uploadToFirebase(imageUri,type);
+                    uploadToFirebase(imageUri,type, value[0]);
                 }
                 else {
                     HashMap<String, Object> m = new HashMap<String, Object>();
                     m.put("Information", info_complaint.getText().toString());
                     m.put("Type", type);
+                    m.put("Location", value[0]);
                     root.child("Complaints").push().setValue(m);
                     Toast.makeText(Complaint.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
 
@@ -96,7 +123,7 @@ private Uri imageUri;
                 image_complaint.setImageURI(imageUri);
         }
     }
-    private void uploadToFirebase(Uri uri,String type){
+    private void uploadToFirebase(Uri uri,String type,String value){
         StorageReference fileRef = reference.child(System.currentTimeMillis()+"."+ getFileExtension(uri));
         fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -111,6 +138,7 @@ private Uri imageUri;
                         HashMap<String ,Object> k = new HashMap<String, Object>();
                         k.put("Information",info_complaint.getText().toString());
                         k.put("Type",type);
+                        k.put("Location", value);
                         k.put("url",imageUrl.toString());
                         root.child("Complaints").push().setValue(k);
 
