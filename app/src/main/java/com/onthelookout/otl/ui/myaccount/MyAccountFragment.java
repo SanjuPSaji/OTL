@@ -25,8 +25,6 @@ public class MyAccountFragment extends Fragment {
         binding = FragmentMyaccountBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textMyaccount;
-        myaccountViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

@@ -32,8 +32,8 @@ public class UploadFragment extends Fragment {
         binding = FragmentUploadBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textUpload;
-        uploadViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textUpload;
+//        uploadViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
 
 

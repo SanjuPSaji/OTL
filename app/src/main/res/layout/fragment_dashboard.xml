@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/dashboard"
     tools:context=".ui.dashboard.DashboardFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -13,6 +13,7 @@
         android:layout_height="729dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
+        android:background="@drawable/complaint_text_box"
         android:layout_marginEnd="1dp"
         android:layout_below="@+id/spinner"
         app:layout_constraintEnd_toEndOf="parent"

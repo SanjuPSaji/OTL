@@ -10,7 +10,7 @@ public class UploadViewModel extends ViewModel {
 
     public UploadViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("");
     }
 
     public LiveData<String> getText() {

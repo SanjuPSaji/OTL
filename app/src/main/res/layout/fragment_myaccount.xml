@@ -1,23 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_700"
+    android:background="@color/white"
     tools:context=".ui.myaccount.MyAccountFragment">
 
-    <TextView
-        android:id="@+id/text_myaccount"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:padding="15dp"
+        android:layout_margin="15dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/accImg"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textview_name"
+            android:text="Full Name"
+            android:padding="6dp"
+            android:textSize="16sp"
+            android:layout_marginTop="200dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/registered_full_name"
+            android:hint="Enter your full name"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            android:padding="6dp"
+            android:layout_below="@id/textview_name"
+            android:background="@drawable/backgroundbox"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textview_email"
+            android:layout_below="@id/registered_full_name"
+            android:text="Email*"
+            android:padding="6dp"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/registered_email"
+            android:hint="Enter your email"
+            android:inputType="textEmailAddress"
+            android:textSize="16sp"
+            android:padding="6dp"
+            android:layout_below="@id/textview_email"
+            android:background="@drawable/backgroundbox"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textview_dob"
+            android:layout_below="@id/registered_email"
+            android:text="Date of Birth*"
+            android:padding="6dp"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/registered_dob"
+            android:hint="Select your DoB"
+            android:inputType="date"
+            android:focusable="false"
+            android:textSize="16sp"
+            android:padding="6dp"
+            android:layout_below="@id/textview_dob"
+            android:background="@drawable/backgroundbox"/>
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+</ScrollView>
